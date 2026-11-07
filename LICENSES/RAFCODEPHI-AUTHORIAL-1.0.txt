@@ -1,0 +1,35 @@
+RAFCODEPHI AUTHORIAL LICENSE 1.0
+Repo-local, non-OSI, authorial grant. Legal review not yet recorded.
+
+Copyright (c) 2026 Rafael Melo Reis. All rights reserved except as expressly granted.
+
+SCOPE
+This grant applies only to independently authored files under
+rafcode_core/ that expressly identify this LicenseRef, and to this text.
+It does not apply to any FirebirdSQL/python3-driver file or third-party
+contribution. Those works retain their existing licenses, including the
+Firebird Project MIT license at the repository root.
+
+PERMISSION
+A non-exclusive, worldwide, royalty-free permission is granted to use,
+study, reproduce, modify and redistribute the covered original files
+for personal, educational and non-commercial research purposes, provided
+that the copyright notice, this license text, modification notices and
+the above separation-of-provenance statement accompany copies.
+
+COMMERCIAL USE
+Commercial exploitation of the covered original files, including paid
+licensing, resale, and incorporation into commercial services or products,
+requires a separate written grant from the copyright holder.
+Permission is not implied by the permissive MIT license on upstream files.
+
+RESERVATIONS
+No permission is given to relicense upstream Firebird work, remove third-
+party notices, or use a third party's trademarks. No patent or trademark
+license is expressly granted. No restriction here changes rights granted
+under the original MIT license or applicable law.
+
+DISCLAIMER
+TO THE MAXIMUM EXTENT ALLOWED BY APPLICABLE LAW, THE COVERED FILES ARE
+PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. THIS TEXT IS AN AUTHORIAL
+LICENSING DRAFT AND HAS NOT BEEN REPRESENTED AS COUNSEL-APPROVED.
