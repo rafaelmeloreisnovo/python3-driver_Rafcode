@@ -1,0 +1,52 @@
+name: RAFCODE freestanding core (scoped)
+on:
+  push:
+    branches:
+      - 'rafcode/**'
+    paths:
+      - 'rafcode_core/**'
+      - 'LICENSES/RAFCODEPHI-AUTHORIAL-1.0.txt'
+      - '.github/workflows/rafcode-freestanding-core.yml'
+  pull_request:
+    paths:
+      - 'rafcode_core/**'
+      - 'LICENSES/RAFCODEPHI-AUTHORIAL-1.0.txt'
+      - '.github/workflows/rafcode-freestanding-core.yml'
+permissions:
+  contents: read
+jobs:
+  cursor:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: GCC and Clang tests / no undefined runtime imports
+        shell: bash
+        run: |
+          set -euo pipefail
+          for cc in gcc clang; do
+            "$cc" -std=c11 -O2 -ffreestanding -fno-builtin -fno-stack-protector \
+              -Wall -Wextra -Werror -pedantic -Irafcode_core/include \
+              -c rafcode_core/src/rafcode_cursor.c -o "core-$cc.o"
+            if [ -n "$(nm -u "core-$cc.o")" ]; then
+              echo "Unexpected undefined core imports for $cc"
+              nm -u "core-$cc.o"
+              exit 1
+            fi
+            "$cc" -std=c11 -O2 -Wall -Wextra -Werror -pedantic \
+              -Irafcode_core/include rafcode_core/src/rafcode_cursor.c \
+              rafcode_core/tests/cursor_selftest.c -o "selftest-$cc"
+            "./selftest-$cc"
+          done
+      - name: Header-free ARMv7 and ARM64 cross compilation
+        shell: bash
+        run: |
+          set -euo pipefail
+          for target in armv7a-none-eabi aarch64-none-elf; do
+            clang --target="$target" -std=c11 -O2 -ffreestanding -fno-builtin \
+              -fno-stack-protector -nostdinc -Wall -Wextra -Werror -pedantic \
+              -Irafcode_core/include -c rafcode_core/src/rafcode_cursor.c \
+              -o "core-$target.o"
+            test -s "core-$target.o"
+            file "core-$target.o"
+          done
